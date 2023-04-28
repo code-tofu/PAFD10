@@ -27,7 +27,7 @@ public class BeerRepository {
     // Task 2: DO NOT CHANGE THE SIGNATURE OF THIS METHOD
     public List<Style> getStyles() {
         List<Style> styleList = jdbcTemplate.query(SELECT_ALL_STYLES_COUNT, new StyleMapper());
-        System.out.println(styleList.size());
+        // System.out.println(styleList.size());
         return styleList;
     }
 
@@ -35,7 +35,7 @@ public class BeerRepository {
     public List<Beer> getBreweriesByBeer(int styleID) {
         // int styleID = getStyleIDbyStyleName(styleName);
         List<Beer> beerList = jdbcTemplate.query(SELECT_BEERS_BY_STYLENAME, new BeerMapper(), styleID);
-        System.out.println(beerList.size());
+        // System.out.println(beerList.size());
         return beerList;
     }
 
@@ -75,7 +75,7 @@ public class BeerRepository {
             beerList.add(newBeer);
         }
         brewery.setBeers(beerList);
-        System.out.println(beerList.size());
+        // System.out.println(beerList.size());
         return Optional.of(brewery);
 
     }

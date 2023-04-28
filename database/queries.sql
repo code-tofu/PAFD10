@@ -137,3 +137,5 @@ WHERE breweries.id = 2 ORDER BY beer_name ASC LIMIT 1;
 
 SELECT name, descript FROM beers AS description WHERE brewery_id = 2 ORDER BY name;
 SELECT COUNT(name) FROM beers WHERE brewery_id = 2;
+SELECT name FROM breweries WHERE id = 2;
+SELECT name FROM beers where id = 3985;

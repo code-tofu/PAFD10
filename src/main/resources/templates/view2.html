@@ -56,8 +56,10 @@
         data-th-unless="${#lists.isEmpty(brewery.beers)}"
         class="table table-striped table-bordered"
       >
-        <form>
-          <!-- data-th-action="@{/cartList}" method="POST" data-th-object="${cartList}" -->
+        <form
+          data-th-action="@{/brewery/{breweryId}/order(breweryId=*{brewery.breweryId})}"
+          method="POST"
+        >
           <thead class="thead-dark">
             <div class="align-right">
               <button type="submit" class="btn btn-md btn-danger">
@@ -78,7 +80,14 @@
               <td>
                 <span data-th-text="*{beerDescription}"></span>
               </td>
-              <td></td>
+              <td>
+                <input
+                  type="number"
+                  id="quantity"
+                  th:name="*{beerId}"
+                  min="0"
+                />
+              </td>
             </tr>
           </tbody>
         </form>
