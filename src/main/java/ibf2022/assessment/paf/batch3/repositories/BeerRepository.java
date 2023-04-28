@@ -1,11 +1,13 @@
 package ibf2022.assessment.paf.batch3.repositories;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import ibf2022.assessment.paf.batch3.models.Beer;
@@ -37,11 +39,45 @@ public class BeerRepository {
         return beerList;
     }
 
-    // DO NOT CHANGE THE METHOD'S NAME OR THE RETURN TYPE OF THIS METHOD
-    public Optional<Brewery> getBeersFromBrewery(/* You can add any number of parameters here */) {
-        // TODO: Task 4
+    // Task 4: DO NOT CHANGE THE METHOD'S NAME OR THE RETURN TYPE OF THIS METHOD
+    public Optional<Brewery> getBeersFromBrewery(int breweryID) {
+        /*
+         * Although memory inefficient (sql rowset contains repeated fields per type of
+         * beer), instruction is to use SINGLE SQL query, hence implementation as below
+         */
+        Brewery brewery = new Brewery();
+        List<Beer> beerList = new LinkedList<>();
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(SELECT_BEERS_FROM_BREWERY, breweryID);
+        if (rs.next()) {
+            brewery.setAddress1(rs.getString("address1"));
+            brewery.setAddress2(rs.getString("address2"));
+            brewery.setBreweryId(breweryID);
+            brewery.setCity(rs.getString("city"));
+            brewery.setDescription(rs.getString("brewery_description"));
+            brewery.setName(rs.getString("brewery_name"));
+            brewery.setPhone(rs.getString("phone"));
+            brewery.setWebsite(rs.getString("website"));
 
-        return Optional.empty();
+            Beer newBeer = new Beer();
+            newBeer.setBeerId(rs.getInt("beer_id"));
+            newBeer.setBeerName(rs.getString("beer_name"));
+            newBeer.setBeerDescription(rs.getString("beer_description"));
+            beerList.add(newBeer);
+            // beer.breweryId and beer.breweryName fields not filled to save memory
+        } else {
+            return Optional.empty();
+        }
+        while (rs.next()) {
+            Beer newBeer = new Beer();
+            newBeer.setBeerId(rs.getInt("beer_id"));
+            newBeer.setBeerName(rs.getString("beer_name"));
+            newBeer.setBeerDescription(rs.getString("beer_description"));
+            beerList.add(newBeer);
+        }
+        brewery.setBeers(beerList);
+        System.out.println(beerList.size());
+        return Optional.of(brewery);
+
     }
 
     // TASK 3: DEPRECATED
