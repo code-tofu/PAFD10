@@ -52,6 +52,7 @@
         </tr>
       </table>
 
+      <h2 data-th-unless="${#lists.isEmpty(brewery.beers)}">Beers:</h2>
       <table
         data-th-unless="${#lists.isEmpty(brewery.beers)}"
         class="table table-striped table-bordered"

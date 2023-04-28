@@ -41,6 +41,9 @@ public class BeerService {
     // Task 5: DO NOT CHANGE THE METHOD'S NAME OR THE RETURN TYPE OF THIS METHOD
     public String placeOrder(String orderString, int breweryID) {
         Map<Integer, Integer> orders = BeerService.decodeOrder(orderString);
+        if (orders.size() < 1) {
+            return "null_order";
+        }
         String returnOrderId = orderRepo.insertNewOrder(orders, breweryID);
         // System.out.println(returnOrderId);
         return returnOrderId;

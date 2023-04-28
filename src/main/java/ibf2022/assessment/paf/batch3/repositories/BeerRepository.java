@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
@@ -81,13 +80,14 @@ public class BeerRepository {
     }
 
     // TASK 3: DEPRECATED
-    public int getStyleIDbyStyleName(String styleName) {
-        try {
-            int styleID = jdbcTemplate.queryForObject(SELECT_STYLEID_BY_STYLENAME, Integer.class, styleName);
-            System.out.println(styleName + "-id:" + styleID);
-            return styleID;
-        } catch (EmptyResultDataAccessException NotFoundErr) {
-            return -1;
-        }
-    }
+    // public int getStyleIDbyStyleName(String styleName) {
+    // try {
+    // int styleID = jdbcTemplate.queryForObject(SELECT_STYLEID_BY_STYLENAME,
+    // Integer.class, styleName);
+    // System.out.println(styleName + "-id:" + styleID);
+    // return styleID;
+    // } catch (EmptyResultDataAccessException NotFoundErr) {
+    // return -1;
+    // }
+    // }
 }

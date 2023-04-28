@@ -58,6 +58,8 @@ public class BeerController {
     public String orderPage(@PathVariable String breweryID, @RequestBody String orderString, Model model) {
         // System.out.println(orderString);
         String orderId = beerSvc.placeOrder(orderString, Integer.parseInt(breweryID));
+        if (orderId.equals("null_order"))
+            return "null_order";
         model.addAttribute("orderId", orderId);
         return "view3";
     }

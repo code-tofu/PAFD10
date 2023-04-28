@@ -24,21 +24,17 @@ public class OrderRepository {
         newDoc.append("date", LocalDate.now());
         newDoc.append("breweryId", breweryID);
 
-        if (orders.size() > 0) {
-            List<Document> ordersDocList = new ArrayList<>();
-            for (int beerid : orders.keySet()) {
-                Document newOrderDoc = new Document();
-                newOrderDoc.append("beerId", beerid);
-                newOrderDoc.append("quantity", orders.get(beerid));
-                ordersDocList.add(newOrderDoc);
-            }
-            newDoc.append("orders", ordersDocList);
+        // requirement is ambigious
+        List<Document> ordersDocList = new ArrayList<>();
+        for (int beerid : orders.keySet()) {
+            Document newOrderDoc = new Document();
+            newOrderDoc.append("beerId", beerid);
+            newOrderDoc.append("quantity", orders.get(beerid));
+            ordersDocList.add(newOrderDoc);
         }
-        // else {
-        // System.out.println("Size = 0 No Orders");
-        // }
+        newDoc.append("orders", ordersDocList);
 
-        Document returnDoc = mongoTemplate.insert(newDoc, "beer_orders");
+        Document returnDoc = mongoTemplate.insert(newDoc, "orders");
         return returnDoc.getString("orderId");
     }
 
