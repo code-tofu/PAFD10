@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ibf2022.assessment.paf.batch3.models.Beer;
 import ibf2022.assessment.paf.batch3.models.Style;
 import ibf2022.assessment.paf.batch3.repositories.BeerRepository;
 
@@ -17,6 +18,11 @@ public class BeerService {
     // TASK 2:
     public List<Style> getStylesSvc() {
         return beerRepo.getStyles();
+    }
+
+    // TASK 3:
+    public List<Beer> getBreweriesByBeer(int styleID) {
+        return beerRepo.getBreweriesByBeer(styleID);
     }
 
     // DO NOT CHANGE THE METHOD'S NAME OR THE RETURN TYPE OF THIS METHOD
