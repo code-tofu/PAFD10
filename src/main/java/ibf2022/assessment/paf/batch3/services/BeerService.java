@@ -58,6 +58,8 @@ public class BeerService {
             // System.out.println(Arrays.toString(splitqty));
             if (splitqty[1].equals(""))
                 continue;
+            if (splitqty[1].equals("0"))
+                continue;
             orders.put(Integer.parseInt(splitqty[0]), Integer.parseInt(splitqty[1]));
         }
         // System.out.println(orders.toString());
